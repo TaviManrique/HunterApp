@@ -102,6 +102,7 @@ fun ShimmerItem(alpha: Float) {
     }
 }
 
+@Preview
 @Composable
 fun ShimmerItemPreview() {
     AnimatedShimmerItem()
