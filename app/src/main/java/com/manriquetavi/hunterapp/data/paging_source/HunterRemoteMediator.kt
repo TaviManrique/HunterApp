@@ -1,6 +1,5 @@
 package com.manriquetavi.hunterapp.data.paging_source
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -11,9 +10,6 @@ import com.manriquetavi.hunterapp.data.remote.HxHApi
 import com.manriquetavi.hunterapp.domain.model.Hunter
 import com.manriquetavi.hunterapp.domain.model.HunterRemoteKeys
 import java.lang.Exception
-import java.text.SimpleDateFormat
-import java.util.*
-import javax.inject.Inject
 
 @ExperimentalPagingApi
 class HunterRemoteMediator(
@@ -27,16 +23,16 @@ class HunterRemoteMediator(
     override suspend fun initialize(): InitializeAction {
         val currentTime = System.currentTimeMillis()
         val lastUpdated = hunterRemoteKeysDao.getRemoteKeys(hunterId = 1)?.lastUpdated ?: 0L
-        val cacheTimeOut = 5 //minutes
-        
-        Log.d("RemotedMediator", "Current Time: ${parseMillis(currentTime)}")
-        Log.d("RemotedMediator", "Last Updated Time: ${parseMillis(lastUpdated)}")
+        val cacheTimeOut = 1440 //minutes
+
+        //Log.d("RemotedMediator", "Current Time: ${parseMillis(currentTime)}")
+        //Log.d("RemotedMediator", "Last Updated Time: ${parseMillis(lastUpdated)}")
         val diffInMinutes = (currentTime - lastUpdated)/60000
         return if(diffInMinutes.toInt() <= cacheTimeOut) {
-            Log.d("RemotedMediator", "UP TO DATE!")
+            //Log.d("RemotedMediator", "UP TO DATE!")
             InitializeAction.SKIP_INITIAL_REFRESH
         } else {
-            Log.d("RemotedMediator", "REFRESH")
+            //Log.d("RemotedMediator", "REFRESH")
             InitializeAction.LAUNCH_INITIAL_REFRESH
         }
     }
@@ -113,10 +109,10 @@ class HunterRemoteMediator(
 
         }
     }
-
+    /*
     private fun parseMillis(millis: Long): String {
         val date = Date(millis)
         val format = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.ROOT)
         return format.format(date)
-    }
+    }*/
 }
