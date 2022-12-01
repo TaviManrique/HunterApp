@@ -5,7 +5,7 @@ import com.manriquetavi.hunterapp.data.remote.FakeHxHApi
 import com.manriquetavi.hunterapp.data.remote.HxHApi
 import com.manriquetavi.hunterapp.domain.model.Hunter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -109,7 +109,7 @@ class SearchHuntersSourceTest {
 
     @Test
     fun `Searched api with existing hunter name, expect single hunter result, assert LoadResult_Page`() =
-        runBlockingTest {
+        runTest {
             val hunterSource = SearchHuntersSource(hxHApi = hxHApi, query = "Gon")
             assertEquals<LoadResult<Int, Hunter>>(
                 expected = LoadResult.Page(
@@ -129,7 +129,7 @@ class SearchHuntersSourceTest {
 
     @Test
     fun `Searched api with existing hunter name, expect multiple hunter result, assert LoadResult_Page`() =
-        runBlockingTest {
+        runTest {
             val hunterSource = SearchHuntersSource(hxHApi = hxHApi, query = "O")
             assertEquals<LoadResult<Int, Hunter>>(
                 expected = LoadResult.Page(
@@ -149,7 +149,7 @@ class SearchHuntersSourceTest {
 
     @Test
     fun `Searched api with empty hunter name, assert empty hunters list and LoadResult_Page`() =
-        runBlockingTest {
+        runTest {
             val hunterSource = SearchHuntersSource(hxHApi = hxHApi, query = "")
             val loadResult = hunterSource.load(
                 LoadParams.Refresh(
@@ -167,7 +167,7 @@ class SearchHuntersSourceTest {
 
     @Test
     fun `Searched api with non_existing hunter name, assert empty hunters list and LoadResult_Page`() =
-        runBlockingTest {
+        runTest {
             val hunterSource = SearchHuntersSource(hxHApi = hxHApi, query = "Unknown")
             val loadResult = hunterSource.load(
                 LoadParams.Refresh(

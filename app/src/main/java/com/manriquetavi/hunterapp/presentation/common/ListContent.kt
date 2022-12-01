@@ -1,16 +1,9 @@
 package com.manriquetavi.hunterapp.presentation.common
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -20,7 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,7 +25,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.manriquetavi.hunterapp.R
 import com.manriquetavi.hunterapp.domain.model.Hunter
 import com.manriquetavi.hunterapp.navigation.Screen
@@ -101,11 +96,6 @@ fun HunterItem(
     hunter: Hunter,
     navController: NavHostController
 ) {
-    val painter = rememberImagePainter(data = "$BASE_URL${hunter.image}") {
-        placeholder(R.drawable.ic_placeholder)
-        error(R.drawable.ic_placeholder)
-    }
-
     Box(
         modifier = Modifier
             .height(HUNTER_ITEM_HEIGHT)
@@ -115,11 +105,16 @@ fun HunterItem(
         Surface(
             shape = RoundedCornerShape(LARGE_PADDING)
         ) {
-            Image(
+            AsyncImage(
                 modifier = Modifier.fillMaxSize(),
-                painter = painter,
-                contentDescription = stringResource(R.string.hunter_image),
-                contentScale = ContentScale.Crop
+                model = ImageRequest
+                    .Builder(LocalContext.current)
+                    .data("$BASE_URL${hunter.image}")
+                    .build(),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                placeholder = painterResource(R.drawable.ic_placeholder),
+                error = painterResource(R.drawable.ic_placeholder)
             )
         }
         Surface(

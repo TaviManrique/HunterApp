@@ -39,9 +39,11 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable(
             route = Screen.Details.route,
-            arguments = listOf(navArgument(DETAILS_ARGUMENT_KEY){
-                type = NavType.IntType
-            })
+            arguments = listOf(
+                navArgument(DETAILS_ARGUMENT_KEY){
+                    type = NavType.IntType
+                }
+            )
         ) {
             DetailsScreen(navController = navController)
         }

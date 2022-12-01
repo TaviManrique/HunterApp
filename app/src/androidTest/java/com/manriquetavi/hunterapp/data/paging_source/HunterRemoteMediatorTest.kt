@@ -6,12 +6,10 @@ import androidx.test.core.app.ApplicationProvider
 import com.manriquetavi.hunterapp.data.local.HxHDatabase
 import com.manriquetavi.hunterapp.data.remote.FakeHxHApi2
 import com.manriquetavi.hunterapp.domain.model.Hunter
-import junit.framework.Assert.assertFalse
-import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
@@ -50,8 +48,8 @@ class HunterRemoteMediatorTest {
                 leadingPlaceholderCount = 0
             )
             val result = remoteMediator.load(LoadType.REFRESH, pagingState)
-            assertTrue(result is MediatorResult.Success)
-            assertFalse((result as MediatorResult.Success).endOfPaginationReached)
+            Assert.assertTrue(result is MediatorResult.Success)
+            Assert.assertFalse((result as MediatorResult.Success).endOfPaginationReached)
         }
 
     @ExperimentalPagingApi
@@ -70,8 +68,8 @@ class HunterRemoteMediatorTest {
                 leadingPlaceholderCount = 0
             )
             val result = remoteMediator.load(LoadType.REFRESH, pagingState)
-            assertTrue(result is MediatorResult.Success)
-            assertTrue((result as MediatorResult.Success).endOfPaginationReached)
+            Assert.assertTrue(result is MediatorResult.Success)
+            Assert.assertTrue((result as MediatorResult.Success).endOfPaginationReached)
         }
 
     @ExperimentalPagingApi
@@ -90,6 +88,6 @@ class HunterRemoteMediatorTest {
                 leadingPlaceholderCount = 0
             )
             val result = remoteMediator.load(LoadType.REFRESH, pagingState)
-            assertTrue(result is MediatorResult.Error)
+            Assert.assertTrue(result is MediatorResult.Error)
         }
 }

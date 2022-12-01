@@ -1,7 +1,6 @@
 package com.manriquetavi.hunterapp.ui.theme
 
 import androidx.compose.material.Colors
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val Purple200 = Color(0xFFBB86FC)

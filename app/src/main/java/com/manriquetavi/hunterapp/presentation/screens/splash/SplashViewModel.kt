@@ -2,7 +2,6 @@ package com.manriquetavi.hunterapp.presentation.screens.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.manriquetavi.hunterapp.domain.use_cases.UseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +21,6 @@ class SplashViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _onBoardingCompleted.value = useCases.readOnBoardingUseCase().stateIn(viewModelScope).value
-
         }
     }
 }

@@ -18,7 +18,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.manriquetavi.hunterapp.R
 import com.manriquetavi.hunterapp.ui.theme.TOP_APP_BAR_HEIGHT
 import com.manriquetavi.hunterapp.ui.theme.topAppBarBackgroundColor

@@ -2,7 +2,6 @@ package com.manriquetavi.hunterapp.presentation.screens.details
 
 import android.graphics.Color.parseColor
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,13 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.manriquetavi.hunterapp.domain.model.Hunter
 import com.manriquetavi.hunterapp.R
@@ -205,23 +206,26 @@ fun BackgroundContent(
     onClosedClicked: () -> Unit
 ) {
     val imageUrl = "$BASE_URL${hunterImage}"
-    val painter = rememberImagePainter(imageUrl) {
-        error(R.drawable.ic_placeholder)
-    }
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor)
     ) {
-        Image(
+        AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(fraction = imageFraction + MIN_BACKGROUND_IMAGE_HEIGHT)
                 .align(Alignment.TopStart),
-            painter = painter,
-            contentDescription = stringResource(R.string.hunter_image),
-            contentScale = ContentScale.Crop
+            model = ImageRequest
+                .Builder(LocalContext.current)
+                .data(imageUrl)
+                .build(),
+            contentDescription = stringResource(id = R.string.hunter_image),
+            contentScale = ContentScale.Crop,
+            placeholder = painterResource(R.drawable.ic_placeholder),
+            error = painterResource(R.drawable.ic_placeholder)
         )
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
