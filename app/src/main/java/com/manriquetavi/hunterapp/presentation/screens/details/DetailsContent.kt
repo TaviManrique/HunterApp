@@ -118,7 +118,7 @@ fun BottomSheetContent(
                 modifier = Modifier
                     .size(INFO_ICON_SIZE)
                     .weight(2f),
-                painter = painterResource(id = R.drawable.ic_logo),
+                painter = painterResource(id = R.drawable.hxh_logo),
                 contentDescription = stringResource(R.string.app_logo),
                 tint = contentColor
             )

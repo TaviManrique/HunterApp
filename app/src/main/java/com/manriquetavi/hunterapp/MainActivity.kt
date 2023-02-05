@@ -10,8 +10,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.manriquetavi.hunterapp.navigation.SetupNavGraph
+import com.manriquetavi.hunterapp.presentation.screens.splash.SplashViewModel
 import com.manriquetavi.hunterapp.ui.theme.HunterAppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
@@ -19,17 +21,20 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    @Inject
+    lateinit var splashViewModel: SplashViewModel
     private lateinit var navController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().setKeepOnScreenCondition {
-            false
+            !splashViewModel.isLoading
         }
         setContent {
             HunterAppTheme {
+                val startDestination = splashViewModel.startDestination
                 navController = rememberNavController()
-                SetupNavGraph(navController = navController)
+                SetupNavGraph(navController = navController, startDestination = startDestination)
             }
         }
     }

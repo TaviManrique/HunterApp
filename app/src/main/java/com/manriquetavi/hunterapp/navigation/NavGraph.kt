@@ -11,7 +11,6 @@ import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.manriquetavi.hunterapp.presentation.screens.details.DetailsScreen
 import com.manriquetavi.hunterapp.presentation.screens.home.HomeScreen
-import com.manriquetavi.hunterapp.presentation.screens.splash.SplashScreen
 import com.manriquetavi.hunterapp.presentation.screens.welcome.WelcomeScreen
 import com.manriquetavi.hunterapp.presentation.screens.search.SearchScreen
 import com.manriquetavi.hunterapp.util.Constants.DETAILS_ARGUMENT_KEY
@@ -20,14 +19,14 @@ import com.manriquetavi.hunterapp.util.Constants.DETAILS_ARGUMENT_KEY
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
+fun SetupNavGraph(
+    navController: NavHostController,
+    startDestination: String
+) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.route,
+        startDestination = startDestination,
     ) {
-        composable(route = Screen.Splash.route) {
-            SplashScreen(navController = navController)
-        }
         composable(route = Screen.Welcome.route) {
             WelcomeScreen(navController = navController)
         }
